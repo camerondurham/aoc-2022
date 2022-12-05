@@ -66,9 +66,16 @@ fn main() {
         // TODO: make this less memory intensive
         let mut f = arc.lock().unwrap().get(&(mv.from - 1)).unwrap().clone();
         let mut t = arc.lock().unwrap().get(&(mv.to - 1)).unwrap().clone();
-        for _ in 0..mv.count {
-            let item = f.pop().unwrap();
-            t.push(item);
+        // Part 1:
+        // for _ in 0..mv.count {
+        //     let item = f.pop().unwrap();
+        //     t.push(item);
+        // }
+        // Part 2:
+        let sliced = f[f.len() - mv.count as usize..f.len()].to_vec();
+        for c in sliced {
+            f.pop();
+            t.push(c);
         }
         arc.lock().unwrap().insert(mv.from - 1, f);
         arc.lock().unwrap().insert(mv.to - 1, t);
