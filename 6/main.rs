@@ -1,13 +1,17 @@
 use std::collections::HashMap;
 
+// Part 1: 1198
+// Part 2: 3120
+
 enum States {
     Loading,
     Checking,
     Found,
 }
+
+const LENGTH: usize = 14;
 fn main() {
     let input = include_str!("input.txt");
-
     let mut i = 0;
     let mut m = HashMap::<char, i32>::new();
     let mut state = States::Loading;
@@ -19,7 +23,7 @@ fn main() {
         match &state {
             States::Loading => {
                 // previously 3
-                if i == 13 {
+                if i == LENGTH - 1 {
                     state = States::Checking;
                     continue;
                 }
@@ -42,13 +46,13 @@ fn main() {
 
                 let count = m.iter().filter(|(_, v)| **v == 1 as i32).count();
                 // previously 4
-                if count == 14 {
+                if count == LENGTH {
                     println!("found a match, map is: {:?}", &m);
                     state = States::Found;
                 } else {
                     i += 1;
                 }
-                let prev_char = char_vec.get(i - 14).unwrap();
+                let prev_char = char_vec.get(i - LENGTH).unwrap();
                 let prev_val = m.get(prev_char).unwrap();
                 m.insert(prev_char.clone(), prev_val - 1);
             }
