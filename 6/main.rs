@@ -22,7 +22,6 @@ fn main() {
         }
         match &state {
             States::Loading => {
-                // previously 3
                 if i == LENGTH - 1 {
                     state = States::Checking;
                     continue;
@@ -45,7 +44,6 @@ fn main() {
                 }
 
                 let count = m.iter().filter(|(_, v)| **v == 1 as i32).count();
-                // previously 4
                 if count == LENGTH {
                     println!("found a match, map is: {:?}", &m);
                     state = States::Found;
